@@ -31,6 +31,10 @@ namespace EC\Fpfis\Api {
     {
 
         /**
+         * @var string $endpoint
+         */
+        protected $endpoint;
+        /**
          * Creates a new FPFIS client object :
          * ```php
          * $client = new \EC\Fpfis\Api\Client('https://some.api:8443', 'drundedNajRicEwBagBuPyotLifol');
@@ -42,7 +46,7 @@ namespace EC\Fpfis\Api {
          */
         public function __construct($endpoint, $token, $config = [])
         {
-            $config['base_url'] = $endpoint;
+            $this->endpoint = $endpoint;
             parent::__construct($config);
             $this->setDefaultOption('headers/api-token', $token);
             $this->setDefaultOption('headers/content-type', 'application/json');
@@ -57,6 +61,7 @@ namespace EC\Fpfis\Api {
          * @throws \Exception
          */
         public function send(RequestInterface $request) {
+            $request->setPath($this->endpoint.$request->getPath());
             try {
                 $response = json_decode(
                     parent::send($request)->getBody()->getContents()
