@@ -1,0 +1,20 @@
+{
+    "name": "ec-europa/fpfis-api-sdk",
+    "description": "FPFIS API sdk",
+    "type": "library",
+    "license": "EUPL",
+    "authors": [
+        {
+            "name": "Gregory Boddin",
+            "email": "gregory@siwhine.net"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "~5"
+    },
+    "autoload": {
+        "psr-4": {
+            "EC\\Fpfis\\Api\\": "src"
+        }
+    }
+}
