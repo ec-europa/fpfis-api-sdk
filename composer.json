@@ -10,11 +10,12 @@
         }
     ],
     "require": {
-        "guzzlehttp/guzzle": "~5"
+        "tcdent/php-restclient": "^0.1.6",
+        "gboddin/psk-validator": "^0.1.1"
     },
     "autoload": {
         "psr-4": {
-            "EC\\Fpfis\\Api\\": "src"
+            "EC\\Fpfis\\Sdk\\": "src"
         }
     }
 }
