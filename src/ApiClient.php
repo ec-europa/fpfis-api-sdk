@@ -38,6 +38,9 @@ namespace EC\Fpfis\Sdk {
             $this->httpClient = new \RestClient();
             $this->httpClient->options['user_agent'] = 'FPFIS-API-PHP-SDK/0.1';
             $this->httpClient->options['curl_options'] = [];
+            $this->httpClient->options['headers'] = [
+                'Accept' => 'application/json'
+            ];
             $this->pskValidator = new PSKValidator($secret, 'sha256');
             $this->setEndpoint($endpoint);
             $this->setApplicationId($applicationId);
