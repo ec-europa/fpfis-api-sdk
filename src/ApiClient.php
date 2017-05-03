@@ -82,7 +82,13 @@ namespace EC\Fpfis\Sdk {
             /**
              * Post the request and return results
              */
-            return $this->httpClient->post($path, $options);
+            $response= $this->httpClient->post($path, $options);
+            $result = $response->decode_response();
+
+            if (empty($result) || $result->status !== 200) {
+                throw new \Exception('FPFIS API response error : '.$response->response);
+            }
+            return $result;
         }
 
         /**
@@ -91,11 +97,24 @@ namespace EC\Fpfis\Sdk {
          * $client->testAuthentication(); // true or false
          * ```
          *
-         * @return bool Authentication is successul or not.
+         * @return bool|\Exception Authentication is successul or not.
          */
         public function testAuthentication()
         {
-            return $this->send('/auth/test')['status'] === 200;
+            return $this->send('/auth/test')->status === 200;
+        }
+
+        /**
+         * Gets an UID1 OTP from a subsite
+         *
+         * @param $subsite_id
+         * @return string|\Exception $uri One time login link
+         */
+        public function getSubsiteAdminUli($subsite_id)
+        {
+            return $this->send('/drush/getUli', [
+                'subsite_id' => $subsite_id
+            ])->url;
         }
     }
 }
